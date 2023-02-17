@@ -1,0 +1,22 @@
+{
+    "name": "2708-node-lib-md",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "cli": "node ./src/cli.js",
+        "cli:valide": "node ./src/cli.js ./fichiers/text.md valide"
+    },
+    "repository": {
+        "type": "github",
+        "url": "https://github.com/andrelrocha/valida-URL-NodeJS"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "chalk": "^5.0.1"
+    }
+}
