@@ -1,27 +1,29 @@
 import fs from 'fs';
 import chalk from 'chalk';
 
-function extraiLinks(texto) {
+//Récupère toutes les correspondances de liens dans le texte et les transforme ensuite en objets clé-valeur
+function extraitLiens(text) {
     const regex = /\[([^\[\]]*?)\]\((https?:\/\/[^\s?#.].[^\s]*)\)/gm;
-    const capturas = [...texto.matchAll(regex)];
-    const resultados = capturas.map(captura => ({ [captura[1]]: [captura[2]] }))
-    return resultados.length !== 0 ? resultados : "Não há links no arquivo";
+    const captures = [...text.matchAll(regex)];
+    const resultats = captures.map(captures => ({ [captures[1]]: [captures[2]] }))
+    return resultats.length !== 0 ? resultats : "Il n'y a pas de liens dans le fichier";
 }
 
-function trataErro(erro) {
-    throw new Error(chalk.red(erro.code, "não há arquivo no diretório"));
+function gereErreur(erreur) {
+    throw new Error(chalk.red(erreur.code, "il n'y a pas des fichiers dans le répertoire"));
 }
 
-async function pegaArquivo(caminhoDoArquivo) {
+//Extrait les liens du texte ou traite les erreurs de manière personnalisée
+async function prendFichier(cheminDuFichier) {
     try {
-        const enconding = 'utf-8';
-        const texto = await fs.promises.readFile(caminhoDoArquivo, enconding)
-        return extraiLinks(texto);
-    } catch (erro) {
-        trataErro(erro)
+        const encondage = 'utf-8';
+        const text = await fs.promises.readFile(cheminDuFichier, encondage)
+        return extraitLiens(text);
+    } catch (erreur) {
+        gereErreur(erreur)
     } finally {
-        (console.log(chalk.yellow("Fim da leitura dos arquivos.")))
+        (console.log(chalk.yellow("Fin de la lecture des fichiers.")))
     }
 }
 
-export default pegaArquivo;
+export default prendFichier;
