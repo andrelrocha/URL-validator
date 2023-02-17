@@ -1,5 +1,4 @@
 import fetch from 'node-fetch'
-import chalk from 'chalk';
 
 function extraiLinks(arrLinks) {
     const elementosStr = arrLinks.map((objetoLink) => Object.values(objetoLink)).join();
