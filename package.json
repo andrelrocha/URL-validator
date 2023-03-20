@@ -6,7 +6,7 @@
     "type": "module",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "cli:valide": "node ./src/validateurLiens.js ./fichiers/text.md valide"
+        "valide": "node ./src/validateurLiens.js ./fichiers/text.md valide"
     },
     "repository": {
         "type": "github",
