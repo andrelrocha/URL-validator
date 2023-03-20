@@ -3,47 +3,47 @@ import fs from 'fs';
 import prendFichier from './lecteurDeFichiers.js';
 import listaValidada from './validationHttp.js';
 
-//recebe uma array com informações passadas no cmd
-const caminho = process.argv;
+//reçoit un array avec des informations passées dans la ligne de commande
+const chemin = process.argv;
 
-async function imprimeLista(valida, resultado, nomeArquivo = "") {
-    if (valida) {
+async function imprimeListe(valide, resultat, nomFichier = "") {
+    if (valide) {
         console.log(
-            chalk.yellow("lista validada"), 
-            chalk.black.bgGreen(nomeArquivo), 
-            await listaValidada(resultado));
+            chalk.yellow("liste validée"), 
+            chalk.black.bgGreen(nomFichier), 
+            await listaValidada(resultat));
     } else {
         console.log(
-            chalk.yellow("lista de links"), 
-            chalk.black.bgGreen(nomeArquivo), 
-            resultado);
+            chalk.yellow("liste de liens"), 
+            chalk.black.bgGreen(nomFichier), 
+            resultat);
     }
 }
 
-async function processaTexto(argumentos) {
-    const caminho = argumentos[2];
-    const valida = argumentos[3] === 'valide';
+async function traiteTexte(argumentsPasse) {
+    const chemin = argumentsPasse[2];
+    const valide = argumentsPasse[3] === 'valide';
 
     try {
-        //se for passado algum caminho errado no diretório essa informação já virá com erro
-        fs.lstatSync(caminho);
-    } catch (erro) {
-        if (erro.code === "ENOENT") {
+        //si un chemin de répertoire incorrect est passé, une erreur sera renvoyée
+        fs.lstatSync(chemin);
+    } catch (erreur) {
+        if (erreur.code === "ENOENT") {
             console.log(chalk.red("ARQUIVO OU DIRETÓRIO CHAMADO NÃO EXISTE."));
             return
         }
     }
 
-    if (fs.lstatSync(caminho).isFile()) {
-        const resultados = await prendFichier(caminho);
-        imprimeLista(valida, resultados)
-    } else if (fs.lstatSync(caminho).isDirectory()) {
-        const arquivos = await fs.promises.readdir(caminho);
-        arquivos.forEach(async (nomeDeArquivo) => {
-            const lista = await prendFichier(`${caminho}/${nomeDeArquivo}`)
-            imprimeLista(valida, lista, nomeDeArquivo)
+    if (fs.lstatSync(chemin).isFile()) {
+        const resultats = await prendFichier(chemin);
+        imprimeListe(valide, resultats)
+    } else if (fs.lstatSync(chemin).isDirectory()) {
+        const fichiers = await fs.promises.readdir(chemin);
+        fichiers.forEach(async (nomFichier) => {
+            const liste = await prendFichier(`${chemin}/${nomFichier}`)
+            imprimeListe(valide, liste, nomFichier)
         })
     }
 }
 
-processaTexto(caminho);
+traiteTexte(chemin);
