@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import fs from 'fs';
 import prendFichier from './lecteurDeFichiers.js';
-import listaValidada from './validationHttp.js';
+import listeValidee from './validationHttp.js';
 
 //reçoit un array avec des informations passées dans la ligne de commande
 const chemin = process.argv;
@@ -11,7 +11,7 @@ async function imprimeListe(valide, resultat, nomFichier = "") {
         console.log(
             chalk.yellow("liste validée"), 
             chalk.black.bgGreen(nomFichier), 
-            await listaValidada(resultat));
+            await listeValidee(resultat));
     } else {
         console.log(
             chalk.yellow("liste de liens"), 
@@ -29,7 +29,7 @@ async function traiteTexte(argumentsPasse) {
         fs.lstatSync(chemin);
     } catch (erreur) {
         if (erreur.code === "ENOENT") {
-            console.log(chalk.red("ARQUIVO OU DIRETÓRIO CHAMADO NÃO EXISTE."));
+            console.log(chalk.red("FICHIER OU RÉPERTOIRE APPELÉ N'EXISTE PAS."));
             return
         }
     }
