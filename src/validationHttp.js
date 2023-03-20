@@ -1,38 +1,38 @@
 import fetch from 'node-fetch'
 
-function extraiLinks(arrLinks) {
-    const elementosStr = arrLinks.map((objetoLink) => Object.values(objetoLink)).join();
-    const novaArray = elementosStr.split(",");
-    return novaArray
+function extraitLiens(arrLiens) {
+    const elementsStr = arrLiens.map((objetLien) => Object.values(objetLien)).join();
+    const nouvelleArray = elementsStr.split(",");
+    return nouvelleArray
 }
 
-async function checaStatus(arrUrl) {
+async function checkStatus(arrUrl) {
     const arrStatus = await Promise.all(arrUrl.map(async (url) => {
             try {
                 const response = await fetch(url)
                 return response.status;
-            } catch (erro) {
-                return manejaErros(erro);
+            } catch (erreur) {
+                return gereErreurs(erreur);
             }
         })
     )
     return arrStatus
 }
 
-function manejaErros(erro) {
-    if (erro.code === 'ENOTFOUND') {
-        return "link não encontrado";
+function gereErreurs(erreur) {
+    if (erreur.code === 'ENOTFOUND') {
+        return "lien non trouvé";
     } else {
-        return "ocorreu algum erro";
+        return "une erreur s'est produite";
     } 
 }
 
-export default async function listaValidada(listaDeLinks) {
-    const links = extraiLinks(listaDeLinks);
-    const status = await checaStatus(links);
+export default async function listeValidee(listeDeLiens) {
+    const liens = extraitLiens(listeDeLiens);
+    const status = await checkStatus(liens);
     
-    return listaDeLinks.map((objeto, indice) => ({
-        ...objeto, 
-        status: status[indice]
+    return listeDeLiens.map((objet, index) => ({
+        ...objet, 
+        status: status[index]
     }))
 }
