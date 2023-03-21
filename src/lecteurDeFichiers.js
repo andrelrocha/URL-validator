@@ -10,7 +10,7 @@ function extraitLiens(text) {
 }
 
 function gereErreur(erreur) {
-    throw new Error(chalk.red(erreur.code, "il n'y a pas des fichiers dans le répertoire"));
+    throw new Error(chalk.red(erreur.code, "Il n'y a pas des fichiers dans le répertoire appelé."));
 }
 
 //Extrait les liens du texte ou traite les erreurs de manière personnalisée
@@ -22,7 +22,7 @@ async function prendFichier(cheminDuFichier) {
     } catch (erreur) {
         gereErreur(erreur)
     } finally {
-        (console.log(chalk.yellow("Fin de la lecture des fichiers.")))
+        (console.log(chalk.yellow("Fin de la lecture des fichiers.\nTest des liens en cours, veuillez patienter un instant.\n")))
     }
 }
 
