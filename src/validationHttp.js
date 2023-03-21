@@ -6,8 +6,8 @@ function extraitLiens(arrLiens) {
     return nouvelleArray
 }
 
-async function checkStatus(arrUrl) {
-    const arrStatus = await Promise.all(arrUrl.map(async (url) => {
+async function checkStatut(arrUrl) {
+    const arrStatut = await Promise.all(arrUrl.map(async (url) => {
             try {
                 const response = await fetch(url)
                 return response.status;
@@ -16,23 +16,23 @@ async function checkStatus(arrUrl) {
             }
         })
     )
-    return arrStatus
+    return arrStatut
 }
 
 function gereErreurs(erreur) {
     if (erreur.code === 'ENOTFOUND') {
-        return "lien non trouvé";
+        return "Oops, lien non trouvé.";
     } else {
-        return "une erreur s'est produite";
+        return "Une erreur s'est produite.";
     } 
 }
 
 export default async function listeValidee(listeDeLiens) {
     const liens = extraitLiens(listeDeLiens);
-    const status = await checkStatus(liens);
+    const statut = await checkStatut(liens);
     
     return listeDeLiens.map((objet, index) => ({
         ...objet, 
-        status: status[index]
+        statut: statut[index]
     }))
 }

@@ -9,12 +9,12 @@ const chemin = process.argv;
 async function imprimeListe(valide, resultat, nomFichier = "") {
     if (valide) {
         console.log(
-            chalk.yellow("liste validée"), 
+            chalk.yellow("Liste des liens et leur statut de réponse\n"), 
             chalk.black.bgGreen(nomFichier), 
             await listeValidee(resultat));
     } else {
         console.log(
-            chalk.yellow("liste de liens"), 
+            chalk.yellow("Liste de liens"), 
             chalk.black.bgGreen(nomFichier), 
             resultat);
     }
